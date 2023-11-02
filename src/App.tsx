@@ -14,13 +14,14 @@ const App = () => {
       <Provider store={store}>
           <Routes>
             <Route path="products" element={<Products />} />
+
             <Route path="products/:id" element={<ProductDetails />} />
             <Route path="login" element={<Login />} />
-          
-          </Routes>
 
-          <Header />
+          </Routes>
        
+          <Header />
+      
           </Provider>
       </BrowserRouter>
    
