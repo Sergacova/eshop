@@ -138,7 +138,10 @@ const Cart = () => {
                                 </span>
                             )}
                         </div>
-                        <PrimaryButton>Continue to Checkout</PrimaryButton>
+
+
+                        <PrimaryButton> Continue to Checkout</PrimaryButton>
+
                     </div>
                 </div>
             )}
