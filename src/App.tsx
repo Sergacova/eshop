@@ -6,25 +6,32 @@ import { Provider } from "react-redux";
 import ProductDetails from './components/products/ProductsDetails';
 import Products from './components/products/Products';
 import Login from "./pages/Login";
+import Cart from './components/products/Cart';
+import Footer from './pages/Footer';
+import { Home } from './context/Home';
+import { Suspense } from 'react';
+import { Menu } from './context/Menu';
 
 const App = () => {
   return (
 
-      <BrowserRouter>
+    <BrowserRouter>
+      <Suspense fallback='loading'></Suspense>
       <Provider store={store}>
-          <Routes>
-            <Route path="products" element={<Products />} />
+        <Routes>
+          <Route path="products" element={<Products />} />
+          <Route path="cart" element={<Cart />} />
+          <Route path="products/:id" element={<ProductDetails />} />
+          <Route path="login" element={<Login />} />
+          <Route path='/' element={<Home />} />
+          <Route path='/menu' element={<Menu />} />
+        </Routes>
+        <Header />
+        <Footer />
 
-            <Route path="products/:id" element={<ProductDetails />} />
-            <Route path="login" element={<Login />} />
+      </Provider>
+    </BrowserRouter>
 
-          </Routes>
-       
-          <Header />
-      
-          </Provider>
-      </BrowserRouter>
-   
   );
 };
 

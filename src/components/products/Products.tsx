@@ -24,17 +24,17 @@ const Products = (): JSX.Element => {
       });
   }, [currentPage, dispatch, skip]);
   return (
-    <div className="d-flex justify-content-center align-items-center overflow-hidden">
-      
+    <div className="card-img d-flex justify-content-center align-items-center overflow-hidden">
+
       <div className="card mt-3 mb-3 pb-3 myShadow">
 
-  
+
         {products === undefined || products.length === 0 ? (
           <div className="d-flex align-items-center">
             {!loaded ? (
               <LinearProgress />
             ) : (
-                <div className="d-flex align-items-center">
+              <div className="d-flex align-items-center">
                 <strong>Loading...</strong>
                 <div className="spinner-border ml-auto" role="status" aria-hidden="true"></div>
               </div>

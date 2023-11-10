@@ -4,7 +4,6 @@ import { addToCart, deleteFromCart, setDiscount, CardProductState } from "../../
 import PrimaryButton from "./PrimaryButton";
 import QuantityButtons from "./QuantityButtons";
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
-import { formatCurrency } from "../../context/utilies/formatCurrency";
 
 const Cart = () => {
     const cart = useAppSelector((state) => state.cart);
@@ -35,10 +34,10 @@ const Cart = () => {
             <div className="container py-5 h-100">
                 {cart.totalQuantity > 0 ? (
                     <div className="d-flex bg-secondary justify-content-between align-items-center mb-5 fw-bold mb-0 text-black p-5">
-                        <div className="flex-[2]">Product Details</div>
-                        <div className="flex-[2]">Price</div>
-                        <div className="flex-[2]">Quantity</div>
-                        <div className="flex-[2]">Total Price</div>
+                        <div className="flex-[2]">Shopping bag</div>
+                        <div className="flex-1">Price</div>
+                        <div className="flex-1">Quantity</div>
+                        <div className="flex-1">Total Price</div>
                     </div>
                 ) : (
                     <div className="d-flex bg-warning justify-content-between align-items-center mb-5 fw-bold mb-0 text-black p-5">
@@ -51,7 +50,7 @@ const Cart = () => {
                             className="flex flex-col d-flex justify-content-between align-items-center mb-5 fw-bold mb-0 text-black p-5"
                             key={product.id}
                         >
-                            <div className="flex-2 flex items-center gap-4">
+                            <div className="flex-[2] flex items-center gap-4">
                                 <img
                                     src={product.thumbnail}
                                     alt=""
@@ -62,7 +61,7 @@ const Cart = () => {
                             <div className="flex-[2] flex items-center gap-4">
                                 <span className="mb-0">${product.price.toFixed(2)}</span>
                                 {cart.hasDiscount && (
-                                    <span className="fw-bold mb-0 me-5 pe-3">
+                                    <span className="flex-2 flex items-center gap-4">
                                         -{product.discountPercentage}%
                                     </span>
                                 )}
@@ -74,12 +73,12 @@ const Cart = () => {
                                     onIncrement={() => handleIncrement(product)}
                                 />
                             </div>
-                            <div className="flex-2 flex items-center gap-4">
+                            <div className="flex-1 flex gap-4">
                                 <span className={cart.hasDiscount ? "line-through" : ""}>
                                     ${(product.price * product.quantity).toFixed(2)}
                                 </span>
                                 {cart.hasDiscount && (
-                                    <span className="text-red-500">
+                                    <span className="text-dark">
                                         $
                                         {(
                                             (product.price *
@@ -90,70 +89,61 @@ const Cart = () => {
                                     </span>
                                 )}
                                 <button onClick={() => handleDeleteProduct(product)}>
-                                    <i className="fas fa-times"></i>
                                     <DeleteOutlinedIcon />
                                 </button>
                             </div>
                         </div>
-                    ))
-                }
-            </div >
-            {
-                cart.totalQuantity > 0 && (
-
-                    <div className="col-md-4">
-                        <div className="card mb-4">
-                            <div className="card-header py-3">
-                                <h4>Have a Promotion Code?</h4>
-                                <form className="flex" onSubmit={handleSubmitDiscountForm}>
-                                    <input
-                                        type="text"
-                                        name="code"
-                                        placeholder="Enter Code and hit Submit"
-                                        className="border border-gray-300 placeholder:text-gray-500 px-4 py-2 w-full"
-                                    />
-                                    <PrimaryButton>Submit</PrimaryButton>
-                                </form>
-                            </div>
-                            <div className="flex-1"></div>
-                            <div className="flex-1 flex flex-col gap-4">
-                                <h3 className="text-lg font-bold">Order Summary</h3>
-                                <div className="h-px w-1/3 bg-gray-300"></div>
-                                <div className="flex justify-between">
-                                    <span>Sub-total</span>
-                                    {!cart.hasDiscount ? (
-                                        <span>${cart.totalPrice.toFixed(2)}</span>
-                                    ) : (
-                                        <span className="text-red-500">
-                                            ${cart.totalDiscountPrice.toFixed(2)}
-                                        </span>
-                                    )}
-                                </div>
-                                <div className="flex justify-between">
-                                    <span>Shipping</span>
-                                    <span>$50.00</span>
-                                </div>
-                                <div className="h-px w-full bg-gray-300"></div>
-                                <div className="flex justify-between font-bold">
-                                    <span>Total Cost</span>
-                                    {!cart.hasDiscount ? (
-                                        <span>${(cart.totalPrice + 50).toFixed(2)}</span>
-                                    ) : (
-                                        <span className="text-red-500">
-                                            ${(cart.totalDiscountPrice + 50).toFixed(2)}
-                                        </span>
-                                    )}
-                                </div>
-                                <PrimaryButton>Continue to Checkout</PrimaryButton>
-                            </div>
-                        </div>
+                    ))}
+            </div>
+            {cart.totalQuantity > 0 && (
+                <div className="container mx-auto flex flex-col sm:flex-row justify-between gap-4 px-2 md:px-0">
+                    <div className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                        <h4>Have a Promotion Code?</h4>
+                        <form className="flex" onSubmit={handleSubmitDiscountForm}>
+                            <input
+                                type="text"
+                                name="code"
+                                placeholder="Enter Code"
+                                className="border border-gray-300 placeholder:text-secondary-500 px-4 py-2 w-full"
+                            />
+                            <PrimaryButton>Submit</PrimaryButton>
+                        </form>
                     </div>
-                
-                  </div>
-
-
-    )
+                    <div className="flex-1"></div>
+                    <div className="flex-1 flex flex-col gap-4">
+                        <h3 className="list-group-item d-flex justify-content-between align-items-center px-0">Order Summary</h3>
+                        <div className="list-group-item d-flex justify-content-between align-items-center px-0"></div>
+                        <div className="list-group-item d-flex justify-content-between align-items-center px-0">
+                            <span>Sub-total</span>
+                            {!cart.hasDiscount ? (
+                                <span>${cart.totalPrice.toFixed(2)}</span>
+                            ) : (
+                                <span className="text-dark">
+                                    ${cart.totalDiscountPrice.toFixed(2)}
+                                </span>
+                            )}
+                        </div>
+                        <div className="flex justify-between <div className list-group-item d-flex justify-content-between align-items-center px-0">
+                            <span>Shipping</span>
+                            <span>$20.00</span>
+                        </div>
+                        <div className="list-group-item d-flex justify-content-between align-items-center px-0"></div>
+                        <div className="list-group-item d-flex justify-content-between align-items-center px-0">
+                            <span>Total Cost</span>
+                            {!cart.hasDiscount ? (
+                                <span>${(cart.totalPrice + 50).toFixed(2)}</span>
+                            ) : (
+                                <span className="text-dark">
+                                    ${(cart.totalDiscountPrice + 50).toFixed(2)}
+                                </span>
+                            )}
+                        </div>
+                        <PrimaryButton>Continue to Checkout</PrimaryButton>
+                    </div>
+                </div>
+            )}
+        </div>
+    );
 };
-
 
 export default Cart;
